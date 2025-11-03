@@ -253,7 +253,9 @@ export default function Home() {
           </Portal>
         </Dialog.Root>
       ) : (
-        <Spinner size="xl" />
+        <AbsoluteCenter>
+          <Spinner size="xl" />
+        </AbsoluteCenter>
       )}
     </div>
   );
