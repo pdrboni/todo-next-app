@@ -108,7 +108,7 @@ export default function Home() {
             borderRadius="md"
             shadow="md"
             maxHeight="40rem"
-            overflow="scroll"
+            overflow="auto"
           >
             <Flex align="center" m="2" minW="25rem">
               <Button w="100%" onClick={() => setOpen(true)}>
