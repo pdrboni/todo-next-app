@@ -24,9 +24,9 @@ This project also uses the lib **concurrently** in the development environment, 
 - [React Hook Form](https://react-hook-form.com/)
 - [ESLint](https://eslint.org/)
 
-## Before passing to the instalation:
+## Before passing to the installation:
 
-Before discuss the instalation, this app was deployed in Vencel and can be accessed via this [link](https://todo-next-app-murex.vercel.app/). The backend was also deployed but in Render, which you can access via this [link](https://fake-backend-wv5q.onrender.com/todos). The data is not so persistent and I don't know why's that, but if you use the app in one single session the app should work as it was supposed to. Let's proceed!
+Before discuss the installation, this app was deployed in Vencel and can be accessed via this [link](https://todo-next-app-murex.vercel.app/). The backend was also deployed but in Render, which you can access via this [link](https://fake-backend-wv5q.onrender.com/todos). The data is not so persistent and I don't know why's that, but if you use the app in one single session the app should work as it was supposed to. Let's proceed!
 
 ## ⚙️ Installation
 
