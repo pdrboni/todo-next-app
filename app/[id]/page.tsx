@@ -99,13 +99,6 @@ function TodoPage() {
                   </p>
                 </Flex>
               </Box>
-              <Button
-                onClick={() => {
-                  console.log(process.env.NEXT_PUBLIC_API_URL_FRONTEND);
-                }}
-              >
-                console env url
-              </Button>
               <Flex justify="between" paddingTop="1rem">
                 <Dialog.Trigger asChild>
                   <Button background="none" color="red" title="Delete">
