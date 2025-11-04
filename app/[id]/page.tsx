@@ -123,7 +123,7 @@ function TodoPage() {
               </Flex>
               <Link
                 style={{ marginTop: '2rem' }}
-                href={`http://localhost:3000/`}
+                href={`${process.env.NEXT_PUBLIC_API_URL_FRONTEND}`}
               >
                 Back to Home page
               </Link>
