@@ -1,3 +1,10 @@
 {
-  "todos": []
+  "todos": [
+    {
+      "title": "Estudar React",
+      "completed": false,
+      "date": "2025-11-19",
+      "id": 1
+    }
+  ]
 }

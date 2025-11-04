@@ -24,6 +24,10 @@ This project also uses the lib **concurrently** in the development environment, 
 - [React Hook Form](https://react-hook-form.com/)
 - [ESLint](https://eslint.org/)
 
+## Before passing to the instalation:
+
+Before discuss the instalation,
+
 ## ⚙️ Installation
 
 1. Clone the repository:

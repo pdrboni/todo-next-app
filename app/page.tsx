@@ -111,6 +111,13 @@ export default function Home() {
             overflow="auto"
           >
             <Flex align="center" m="2" minW="25rem">
+              <Button
+                onClick={() => {
+                  console.log(process.env.NEXT_PUBLIC_API_URL_FRONTEND);
+                }}
+              >
+                console env url
+              </Button>
               <Button w="100%" onClick={() => setOpen(true)}>
                 Add todo
                 <Icon>
