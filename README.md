@@ -20,6 +20,8 @@ This project also uses the lib **concurrently** in the development environment, 
 - [TypeScript](https://www.typescriptlang.org/)
 - [Chakra UI](https://chakra-ui.com/)
 - [JSON Server](https://github.com/typicode/json-server)
+- [Zod] (https://zod.dev/)
+- [React+Hook+Form] (https://react-hook-form.com/)
 - [ESLint](https://eslint.org/)
 
 ## ⚙️ Installation
@@ -64,10 +66,10 @@ This route renders the layout.tsx in the root folder. Then Next.js renders the c
 
 1. Before the function returning:
 
-- This page has a useState to control the openning of the Dialog todo creation.
+- This page has a useState to control the opening of the Dialog todo creation.
 - This page uses React Query to fetch and cache the todos. Not just for fetching but to update the todo also by marking the todo as Done (using useMutation of React Query).
 - This page uses React Hook Form to validate and throw fields errors in the creation todo form by using useForm hook.
-- it has an onSubmit function to handle the form submition. This is your custom function, the logic YOU want to pass when submitting the form. you have to pass it as a parameter of the handleSubmit function returned by useForm(). this "handleSubmit" function should be called when the form is submitted.
+- it has an onSubmit function to handle the form submission. This is your custom function, the logic YOU want to pass when submitting the form. you have to pass it as a parameter of the handleSubmit function returned by useForm(). this "handleSubmit" function should be called when the form is submitted.
 
 2. Components returned:
 
