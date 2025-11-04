@@ -20,8 +20,8 @@ This project also uses the lib **concurrently** in the development environment, 
 - [TypeScript](https://www.typescriptlang.org/)
 - [Chakra UI](https://chakra-ui.com/)
 - [JSON Server](https://github.com/typicode/json-server)
-- [Zod] (https://zod.dev/)
-- [React+Hook+Form] (https://react-hook-form.com/)
+- [Zod](https://zod.dev/)
+- [React Hook Form](https://react-hook-form.com/)
 - [ESLint](https://eslint.org/)
 
 ## ⚙️ Installation
