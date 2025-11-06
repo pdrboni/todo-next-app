@@ -29,6 +29,7 @@ import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import TodoSchema from '@/schemas/TodoSchema';
 import TodoTitle from '@/components/ui/todo-title';
+import DialogFormComponent from '@/components/ui/dialogForm';
 
 export default function Home() {
   const [open, setOpen] = useState(false);
@@ -95,11 +96,7 @@ export default function Home() {
         </div>
       )}
       {!isLoading ? (
-        <Dialog.Root
-          size={'md'}
-          open={open}
-          onOpenChange={(details) => setOpen(details.open)}
-        >
+        <>
           <Box
             p="4"
             borderWidth="1px"
@@ -173,85 +170,74 @@ export default function Home() {
               ))}
             </Flex>
           </Box>
-
-          <Portal>
-            <Dialog.Backdrop />
-            <Dialog.Positioner>
-              <Dialog.Content>
-                <Dialog.Header>
-                  <Dialog.Title>New Todo</Dialog.Title>
-                </Dialog.Header>
-                <form action="" onSubmit={handleSubmit(onSubmit)}>
-                  <Dialog.Body>
-                    <Field.Root>
-                      <Field.Label>Title</Field.Label>
-                      <Input
-                        {...register('title')}
-                        type="text"
-                        placeholder="Set a title"
-                      />
-                      {errors.title && (
-                        <div className="text-red-500">
-                          {errors.title.message}
-                        </div>
-                      )}
-                    </Field.Root>
-                    <Field.Root paddingTop="1rem">
-                      <Field.Label>Conclusion date</Field.Label>
-                      <Controller
-                        name="date"
-                        control={control}
-                        render={({ field }) => (
-                          <DatePicker
-                            selected={
-                              field.value
-                                ? new Date(field.value + 'T00:00:00')
-                                : null
-                            }
-                            onChange={(date) => {
-                              const formatted = date
-                                ? formatDateToISO(date)
-                                : '';
-                              field.onChange(formatted);
-                            }}
-                            dateFormat="yyyy-MM-dd"
-                            showYearDropdown
-                            showMonthDropdown
-                            placeholderText="Select a conclusion date"
-                          />
-                        )}
-                      />
-                      {errors.date && (
-                        <div className="text-red-500">
-                          {errors.date.message}
-                        </div>
-                      )}
-                    </Field.Root>
-                  </Dialog.Body>
-                  <Dialog.Footer>
-                    <Dialog.ActionTrigger asChild>
-                      <Button
-                        variant="outline"
-                        onClick={(e) => {
-                          e.preventDefault();
-                          reset();
+          <DialogFormComponent
+            open={open}
+            setOpen={setOpen}
+            title="New Todo"
+            handleSubmit={handleSubmit(onSubmit)}
+            body={
+              <>
+                <Field.Root>
+                  <Field.Label>Title</Field.Label>
+                  <Input
+                    {...register('title')}
+                    type="text"
+                    placeholder="Set a title"
+                  />
+                  {errors.title && (
+                    <div className="text-red-500">{errors.title.message}</div>
+                  )}
+                </Field.Root>
+                <Field.Root paddingTop="1rem">
+                  <Field.Label>Conclusion date</Field.Label>
+                  <Controller
+                    name="date"
+                    control={control}
+                    render={({ field }) => (
+                      <DatePicker
+                        selected={
+                          field.value
+                            ? new Date(field.value + 'T00:00:00')
+                            : null
+                        }
+                        onChange={(date) => {
+                          const formatted = date ? formatDateToISO(date) : '';
+                          field.onChange(formatted);
                         }}
-                      >
-                        Cancel
-                      </Button>
-                    </Dialog.ActionTrigger>
-                    <Button type="submit">
-                      {isSubmitting ? <Spinner /> : 'Save'}
-                    </Button>
-                  </Dialog.Footer>
-                </form>
-                <Dialog.CloseTrigger asChild>
-                  <CloseButton size="sm" onClick={() => reset()} />
-                </Dialog.CloseTrigger>
-              </Dialog.Content>
-            </Dialog.Positioner>
-          </Portal>
-        </Dialog.Root>
+                        dateFormat="yyyy-MM-dd"
+                        showYearDropdown
+                        showMonthDropdown
+                        placeholderText="Select a conclusion date"
+                      />
+                    )}
+                  />
+                  {errors.date && (
+                    <div className="text-red-500">{errors.date.message}</div>
+                  )}
+                </Field.Root>
+              </>
+            }
+            footer={
+              <>
+                <Dialog.ActionTrigger asChild>
+                  <Button
+                    variant="outline"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      reset();
+                    }}
+                  >
+                    Cancel
+                  </Button>
+                </Dialog.ActionTrigger>
+                <Button type="submit">
+                  {isSubmitting ? <Spinner /> : 'Save'}
+                </Button>
+              </>
+            }
+            closeTrigger={<CloseButton size="sm" onClick={() => reset()} />}
+          />
+        </>
       ) : (
         <AbsoluteCenter>
           <Spinner size="xl" />
@@ -259,4 +245,13 @@ export default function Home() {
       )}
     </div>
   );
+}
+
+{
+  /* 
+
+
+
+
+*/
 }
