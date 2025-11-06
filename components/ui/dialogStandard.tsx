@@ -1,12 +1,9 @@
 import { CloseButton, Dialog, Portal } from '@chakra-ui/react';
 import React from 'react';
 
-//handleSubmit(onSubmit)
-
-function DialogFormComponent({
+function DialogStandardComponent({
   open,
   setOpen,
-  handleSubmit,
   title,
   body,
   closeTrigger = <CloseButton size="sm" />,
@@ -14,17 +11,16 @@ function DialogFormComponent({
 }: {
   open: boolean;
   setOpen: (open: boolean) => void;
-  handleSubmit: () => any; // eslint-disable-line
   title: string;
   body: React.ReactNode;
-  closeTrigger: React.ReactNode;
+  closeTrigger?: React.ReactNode;
   footer: React.ReactNode;
 }) {
   return (
     <Dialog.Root
       size={'md'}
       open={open}
-      onOpenChange={(details) => setOpen(details.open)}
+      onOpenChange={setOpen ? (details) => setOpen(details.open) : undefined}
     >
       <Portal>
         <Dialog.Backdrop />
@@ -33,10 +29,8 @@ function DialogFormComponent({
             <Dialog.Header>
               <Dialog.Title>{title}</Dialog.Title>
             </Dialog.Header>
-            <form action="" onSubmit={handleSubmit}>
-              <Dialog.Body>{body}</Dialog.Body>
-              <Dialog.Footer>{footer}</Dialog.Footer>
-            </form>
+            <Dialog.Body>{body}</Dialog.Body>
+            <Dialog.Footer>{footer}</Dialog.Footer>
             <Dialog.CloseTrigger asChild>{closeTrigger}</Dialog.CloseTrigger>
           </Dialog.Content>
         </Dialog.Positioner>
@@ -45,4 +39,4 @@ function DialogFormComponent({
   );
 }
 
-export default DialogFormComponent;
+export default DialogStandardComponent;

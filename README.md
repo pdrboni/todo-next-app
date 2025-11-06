@@ -135,12 +135,23 @@ This folder contains the functions formatISODate, which return to us the date fo
 
 ### 2025-11-05 update -> Creation of the DialogFormComponent:
 
-We added the component/ui/dialogForm.tsx file. Now all the Dialog components needed to make a Dialog Chakra UI works, is encapsulated in the DialogFormComponent. Is important to note that this component need some props to be setted. I Will list them as follows:
+We added the component/ui/dialogForm.tsx file. Now all the Dialog components needed to make a form inside a Dialog Chakra UI, is inside the DialogFormComponent. Is important to note that this component need some props to be setted. I Will list them as follows:
 
 - open: is the boolean state in the parent Component to control the opening or closing of the Dialog.
 - setOpen: is the function which controls the previous open state.
 - title: is the title of the Dialog.
 - handleSubmit: the function you want to execute when the form is submitted (remember, is a form dialog).
+- body: the React.ReactNode that will compose the dialog body.
+- footer: the React.ReactNode that will compose the dialog footer.
+- closeTrigger: the React.ReactNode that will compose the dialog close button (the X button in the top right).
+
+### 2025-11-05 update -> Creation of the DialogStandardComponent:
+
+We added the component/ui/dialogStandard.tsx file. Now all the Dialog components needed to make a Dialog Chakra UI, is inside the DialogStandardComponent. Is important to note that this component need some props to be setted. I Will list them as follows:
+
+- open: is the boolean state in the parent Component to control the opening or closing of the Dialog.
+- setOpen: is the function which controls the previous open state.
+- title: is the title of the Dialog.
 - body: the React.ReactNode that will compose the dialog body.
 - footer: the React.ReactNode that will compose the dialog footer.
 - closeTrigger: the React.ReactNode that will compose the dialog close button (the X button in the top right).

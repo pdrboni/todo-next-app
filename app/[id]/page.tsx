@@ -25,6 +25,7 @@ import { FaCheck } from 'react-icons/fa';
 import DatePicker from 'react-datepicker';
 import '@/public/react-datepicker.css';
 import { useQueryClient } from '@tanstack/react-query';
+import DialogStandardComponent from '@/components/ui/dialogStandard';
 
 function TodoPage() {
   const params = useParams<{ id: string }>();
@@ -33,6 +34,7 @@ function TodoPage() {
   const { colorMode } = useColorMode();
   const queryClient = useQueryClient();
   const router = useRouter();
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     async function fetchTodo() {
@@ -48,117 +50,110 @@ function TodoPage() {
     <div>
       {todo ? (
         <>
-          <Dialog.Root>
-            <Flex direction="column" align="center">
-              <Box
-                marginTop="4"
-                minWidth="20vw"
-                p="4"
-                borderWidth="1px"
-                borderColor="border.disabled"
-                color="fg.disabled"
-                borderRadius="md"
-                shadow="md"
-              >
-                <Flex direction="column" align="center" p="2rem">
-                  <Heading as="h1" size="6xl" maxWidth="50vw">
-                    {editMode ? (
-                      <Input
-                        value={todo.title}
-                        onChange={(e) =>
-                          setTodo({ ...todo, title: e.target.value })
-                        }
-                        type="text"
-                        size="2xl"
-                      />
-                    ) : (
-                      todo.title
-                    )}
-                  </Heading>
+          <Flex direction="column" align="center">
+            <Box
+              marginTop="4"
+              minWidth="20vw"
+              p="4"
+              borderWidth="1px"
+              borderColor="border.disabled"
+              color="fg.disabled"
+              borderRadius="md"
+              shadow="md"
+            >
+              <Flex direction="column" align="center" p="2rem">
+                <Heading as="h1" size="6xl" maxWidth="50vw">
                   {editMode ? (
-                    <div style={{ paddingTop: '1rem' }}>
-                      <DatePicker
-                        selected={new Date(todo.date + 'T00:00:00')}
-                        onChange={(date) => {
-                          if (date) {
-                            setTodo({ ...todo, date: formatDateToISO(date) });
-                          }
-                        }}
-                        dateFormat="yyyy-MM-dd"
-                        showYearDropdown
-                        showMonthDropdown
-                      />
-                    </div>
+                    <Input
+                      value={todo.title}
+                      onChange={(e) =>
+                        setTodo({ ...todo, title: e.target.value })
+                      }
+                      type="text"
+                      size="2xl"
+                    />
                   ) : (
-                    <p style={{ paddingTop: '1rem' }}>
-                      {formatISODate(todo.date)}
-                    </p>
+                    todo.title
                   )}
+                </Heading>
+                {editMode ? (
+                  <div style={{ paddingTop: '1rem' }}>
+                    <DatePicker
+                      selected={new Date(todo.date + 'T00:00:00')}
+                      onChange={(date) => {
+                        if (date) {
+                          setTodo({ ...todo, date: formatDateToISO(date) });
+                        }
+                      }}
+                      dateFormat="yyyy-MM-dd"
+                      showYearDropdown
+                      showMonthDropdown
+                    />
+                  </div>
+                ) : (
                   <p style={{ paddingTop: '1rem' }}>
-                    {todo.completed ? 'Done ✅' : 'Not done ❌'}
+                    {formatISODate(todo.date)}
                   </p>
-                </Flex>
-              </Box>
-              <Flex justify="between" paddingTop="1rem">
-                <Dialog.Trigger asChild>
-                  <Button background="none" color="red" title="Delete">
-                    <IoMdClose />
-                  </Button>
-                </Dialog.Trigger>
-                <Button
-                  background="none"
-                  color={colorMode === 'dark' ? 'white' : 'black'}
-                  title={editMode ? 'Confirm' : 'Edit'}
-                  onClick={async () => {
-                    setEditMode(!editMode);
+                )}
+                <p style={{ paddingTop: '1rem' }}>
+                  {todo.completed ? 'Done ✅' : 'Not done ❌'}
+                </p>
+              </Flex>
+            </Box>
+            <Flex justify="between" paddingTop="1rem">
+              <Button
+                onClick={() => setOpen(true)}
+                background="none"
+                color="red"
+                title="Delete"
+              >
+                <IoMdClose />
+              </Button>
+              <Button
+                background="none"
+                color={colorMode === 'dark' ? 'white' : 'black'}
+                title={editMode ? 'Confirm' : 'Edit'}
+                onClick={async () => {
+                  setEditMode(!editMode);
 
-                    if (editMode) {
-                      await updateTodo(todo);
-                      queryClient.invalidateQueries({ queryKey: ['todos'] });
-                    }
+                  if (editMode) {
+                    await updateTodo(todo);
+                    queryClient.invalidateQueries({ queryKey: ['todos'] });
+                  }
+                }}
+              >
+                {editMode ? <FaCheck /> : <MdOutlineEdit />}
+              </Button>
+            </Flex>
+            <Link
+              style={{ marginTop: '2rem' }}
+              href={`${process.env.NEXT_PUBLIC_API_URL_FRONTEND}`}
+            >
+              Back to Home page
+            </Link>
+          </Flex>
+          <DialogStandardComponent
+            title="Delete Todo"
+            open={open}
+            setOpen={setOpen}
+            body={<p>Do you really want to delete the todo {todo.title}?</p>}
+            footer={
+              <>
+                <Dialog.ActionTrigger asChild>
+                  <Button variant="outline">Cancel</Button>
+                </Dialog.ActionTrigger>
+                <Button
+                  onClick={async () => {
+                    await deleteTodo(todo.id);
+                    queryClient.invalidateQueries({ queryKey: ['todos'] });
+                    router.push('/');
                   }}
                 >
-                  {editMode ? <FaCheck /> : <MdOutlineEdit />}
+                  Delete
                 </Button>
-              </Flex>
-              <Link
-                style={{ marginTop: '2rem' }}
-                href={`${process.env.NEXT_PUBLIC_API_URL_FRONTEND}`}
-              >
-                Back to Home page
-              </Link>
-            </Flex>
-            <Portal>
-              <Dialog.Backdrop />
-              <Dialog.Positioner>
-                <Dialog.Content>
-                  <Dialog.Header>
-                    <Dialog.Title>Delete Todo</Dialog.Title>
-                  </Dialog.Header>
-                  <Dialog.Body>
-                    <p>Do you really want to delete the todo {todo.title}?</p>
-                  </Dialog.Body>
-                  <Dialog.Footer>
-                    <Dialog.ActionTrigger asChild>
-                      <Button variant="outline">Cancel</Button>
-                    </Dialog.ActionTrigger>
-                    <Button
-                      onClick={async () => {
-                        await deleteTodo(todo.id);
-                        queryClient.invalidateQueries({ queryKey: ['todos'] });
-                        router.push('/');
-                      }}
-                    >
-                      Delete
-                    </Button>
-                  </Dialog.Footer>
-                  <Dialog.CloseTrigger asChild>
-                    <CloseButton size="sm" />
-                  </Dialog.CloseTrigger>
-                </Dialog.Content>
-              </Dialog.Positioner>
-            </Portal>
-          </Dialog.Root>
+              </>
+            }
+          />
         </>
       ) : (
         <AbsoluteCenter>
