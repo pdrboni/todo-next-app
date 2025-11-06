@@ -33,7 +33,7 @@ Before discuss the installation, this app was deployed in Vencel and can be acce
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/yourusername/todo-app.git
+   git clone https://github.com/pdrboni/todo-app.git
    cd todo-app
 
    ```
